@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.math.BigDecimal;
+
+public class ExchangeRatesActivity extends AppCompatActivity implements ExchangeRatesView {
     private TextView currency;
 
     @Override
@@ -17,5 +19,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCurrency() {
+    }
+
+    @Override
+    public void showExchangeRate(BigDecimal rate) {
+        currency.setText(rate.toString());
+        throw new UnsupportedOperationException("#showExchangeRate()");
     }
 }

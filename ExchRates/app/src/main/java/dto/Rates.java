@@ -1,38 +1,40 @@
+package dto;
 
-package com.example.exchrates;
+import android.support.v4.util.ArrayMap;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.math.BigDecimal;
+import java.util.Map;
 
 public class Rates {
 
     @SerializedName("UAH")
-    @Expose
     private double uAH;
-
     @SerializedName("RUB")
-    @Expose
     private double rUB;
-
     @SerializedName("CNY")
-    @Expose
     private double cNY;
-
     @SerializedName("JPY")
-    @Expose
     private double jPY;
-
     @SerializedName("EUR")
-    @Expose
     private double eUR;
-
     @SerializedName("GBP")
-    @Expose
     private double gBP;
-
     @SerializedName("CHF")
-    @Expose
     private double cHF;
+
+    public Map<String, BigDecimal> getExchangeRates() {
+        final Map<String, BigDecimal> result = new ArrayMap<>();
+        result.put("UAH", new BigDecimal(String.valueOf(uAH)));
+        result.put("RUB", new BigDecimal(String.valueOf(rUB)));
+        result.put("CNY", new BigDecimal(String.valueOf(cNY)));
+        result.put("JPY", new BigDecimal(String.valueOf(jPY)));
+        result.put("EUR", new BigDecimal(String.valueOf(eUR)));
+        result.put("GBP", new BigDecimal(String.valueOf(gBP)));
+        result.put("CHF", new BigDecimal(String.valueOf(cHF)));
+        return result;
+    }
 
     public double getCHF() {
         return cHF;
