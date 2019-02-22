@@ -15,4 +15,7 @@ public class MainActivity extends AppCompatActivity {
         currency = findViewById(R.id.currency_tv);
         currency.setText("USD - 28.83 UAH");
     }
+
+    public void getCurrency() {
+    }
 }
