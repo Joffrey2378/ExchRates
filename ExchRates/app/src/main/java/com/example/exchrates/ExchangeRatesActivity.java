@@ -6,7 +6,9 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 
+import network.OpenExchangeApi;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExchangeRatesActivity extends AppCompatActivity implements ExchangeRatesView {
     private TextView currency;
@@ -17,19 +19,19 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initializePresenter();
-
         currency = findViewById(R.id.currency_tv);
-        currency.setText("USD - 28.83 UAH");
 
-
+        initializePresenter();
+        presenter.onViewIsPrepared();
     }
 
     private void initializePresenter() {
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl()
-    }
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl("https://openexchangerates.org")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        OpenExchangeApi api = retrofit.create(OpenExchangeApi.class);
 
-    public void getCurrency() {
+        OpenExchangeBank bank = new OpenExchangeBank(api);
+        presenter = new ExchangeRatesPresenter(bank, this);
     }
 
     @Override

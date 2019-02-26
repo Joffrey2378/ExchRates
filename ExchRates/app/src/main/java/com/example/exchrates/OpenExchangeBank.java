@@ -7,28 +7,35 @@ import java.util.Map;
 import dto.RatesResponseDTO;
 import network.OpenExchangeApi;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OpenExchangeBank {
     private final OpenExchangeApi api;
 
-    public OpenExchangeBank(OpenExchangeApi api) {
+    OpenExchangeBank(OpenExchangeApi api) {
         this.api = api;
     }
 
-    public Map<String, BigDecimal> getRatesFor(String currencyCode) {
+    void getRatesFor(String currencyCode, final Consumer<Map<String, BigDecimal>> callbackResponse) {
 
-        try {
-            final Call<RatesResponseDTO> ratesRequest = api.getRates(currencyCode);
-            final Response<RatesResponseDTO> ratesResponse = ratesRequest.execute();
-            if (ratesResponse.isSuccessful()) {
-                final RatesResponseDTO responseDTO = ratesResponse.body();
-                return responseDTO.getRates().getExchangeRates();
-            } else {
-                throw new RuntimeException();
+        final Call<RatesResponseDTO> ratesRequest = api.getRates(currencyCode);
+        ratesRequest.enqueue(new Callback<RatesResponseDTO>() {
+            @Override
+            public void onResponse(Call<RatesResponseDTO> call,
+                                   Response<RatesResponseDTO> response) {
+                callbackResponse.consume(response.body().getRates().getExchangeRates());
             }
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
+
+            @Override
+            public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
+
+            }
+        });
+//            if (ratesResponse.isSuccessful()) {
+//                final RatesResponseDTO responseDTO = ratesResponse.body();
+//            } else {
+//                throw new RuntimeException();
+//            }
     }
 }
