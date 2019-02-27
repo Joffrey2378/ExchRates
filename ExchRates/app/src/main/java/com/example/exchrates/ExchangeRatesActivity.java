@@ -37,6 +37,5 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
     @Override
     public void showExchangeRate(BigDecimal rate) {
         currency.setText(rate.toString());
-        throw new UnsupportedOperationException("#showExchangeRate()");
     }
 }

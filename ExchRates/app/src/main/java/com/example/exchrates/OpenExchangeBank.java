@@ -1,6 +1,5 @@
 package com.example.exchrates;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -17,14 +16,12 @@ public class OpenExchangeBank {
         this.api = api;
     }
 
-    void getRatesFor(String currencyCode, final Consumer<Map<String, BigDecimal>> callbackResponse) {
-
-        final Call<RatesResponseDTO> ratesRequest = api.getRates(currencyCode);
-        ratesRequest.enqueue(new Callback<RatesResponseDTO>() {
+    void getRatesFor(String currencyCode, final Consumer<Map<String, BigDecimal>> consumer) {
+        api.getRates(currencyCode).enqueue(new Callback<RatesResponseDTO>() {
             @Override
-            public void onResponse(Call<RatesResponseDTO> call,
-                                   Response<RatesResponseDTO> response) {
-                callbackResponse.consume(response.body().getRates().getExchangeRates());
+            public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
+                Map<String, BigDecimal> rates = response.body().getRates().getExchangeRates();
+                consumer.consume(rates);
             }
 
             @Override
@@ -32,10 +29,5 @@ public class OpenExchangeBank {
 
             }
         });
-//            if (ratesResponse.isSuccessful()) {
-//                final RatesResponseDTO responseDTO = ratesResponse.body();
-//            } else {
-//                throw new RuntimeException();
-//            }
     }
 }

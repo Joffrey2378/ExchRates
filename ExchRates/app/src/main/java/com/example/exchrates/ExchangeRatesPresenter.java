@@ -13,8 +13,13 @@ public class ExchangeRatesPresenter {
     }
 
     public void onViewIsPrepared() {
-        final Map<String, BigDecimal> usd = openExchangeBank.getRatesFor("USD");
-        final BigDecimal uahRate = usd.get("UAH");
-        view.showExchangeRate(uahRate);
+        openExchangeBank.getRatesFor("USD", new Consumer<Map<String, BigDecimal>>() {
+
+            @Override
+            public void consume(Map<String, BigDecimal> exchangeRates) {
+                BigDecimal uah = exchangeRates.get("UAH");
+                view.showExchangeRate(uah);
+            }
+        });
     }
 }
