@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import network.OpenExchangeApi;
 import retrofit2.Retrofit;
@@ -35,7 +36,7 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
     }
 
     @Override
-    public void showExchangeRate(BigDecimal rate) {
-        currency.setText(rate.toString());
+    public void showExchangeRate(Map<String, BigDecimal> rate) {
+
     }
 }

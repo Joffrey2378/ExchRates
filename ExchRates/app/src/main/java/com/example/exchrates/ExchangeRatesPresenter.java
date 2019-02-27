@@ -17,8 +17,8 @@ public class ExchangeRatesPresenter {
 
             @Override
             public void consume(Map<String, BigDecimal> exchangeRates) {
-                BigDecimal uah = exchangeRates.get("UAH");
-                view.showExchangeRate(uah);
+//                BigDecimal uah = exchangeRates.get("UAH");
+                view.showExchangeRate(exchangeRates);
             }
         });
     }

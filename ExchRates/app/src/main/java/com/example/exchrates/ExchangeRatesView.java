@@ -1,8 +1,9 @@
 package com.example.exchrates;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public interface ExchangeRatesView {
 
-    void showExchangeRate(BigDecimal rate);
+    void showExchangeRate(Map<String, BigDecimal> rate);
 }
