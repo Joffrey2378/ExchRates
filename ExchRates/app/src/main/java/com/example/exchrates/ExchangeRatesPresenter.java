@@ -1,11 +1,14 @@
 package com.example.exchrates;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ExchangeRatesPresenter {
     private final OpenExchangeBank openExchangeBank;
     private final ExchangeRatesView view;
+    private List<CurrencyPresentationModel> convertedRates = new ArrayList<>();
 
     public ExchangeRatesPresenter(OpenExchangeBank openExchangeBank, ExchangeRatesView view) {
         this.openExchangeBank = openExchangeBank;
@@ -17,8 +20,12 @@ public class ExchangeRatesPresenter {
 
             @Override
             public void consume(Map<String, BigDecimal> exchangeRates) {
+                for (Map.Entry<String, BigDecimal> entry :
+                        exchangeRates.entrySet()) {
+                    convertedRates.add(new CurrencyPresentationModel(entry.getKey(), entry.getValue()));
+                }
 //                BigDecimal uah = exchangeRates.get("UAH");
-                view.showExchangeRate(exchangeRates);
+                view.showExchangeRate(convertedRates);
             }
         });
     }

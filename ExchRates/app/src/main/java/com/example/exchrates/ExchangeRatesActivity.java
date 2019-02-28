@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 import network.OpenExchangeApi;
 import retrofit2.Retrofit;
@@ -24,6 +23,8 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
 
         initializePresenter();
         presenter.onViewIsPrepared();
+        final ExchangeRatesAdapter adapter = new ExchangeRatesAdapter();
+
     }
 
     private void initializePresenter() {
@@ -36,7 +37,7 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
     }
 
     @Override
-    public void showExchangeRate(Map<String, BigDecimal> rate) {
+    public void showExchangeRate(List<CurrencyPresentationModel> rate) {
 
     }
 }
