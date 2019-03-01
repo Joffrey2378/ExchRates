@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.util.List;
 
 import network.OpenExchangeApi;
@@ -19,6 +21,8 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        JodaTimeAndroid.init(this);
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

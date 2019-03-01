@@ -11,12 +11,24 @@ import retrofit2.Response;
 
 public class OpenExchangeBank {
     private final OpenExchangeApi api;
+    private TimeFactory timeFactory = new TimeFactory();
 
     OpenExchangeBank(OpenExchangeApi api) {
         this.api = api;
     }
 
-    void getRatesFor(String currencyCode, final Consumer<Map<String, BigDecimal>> consumer) {
+    void getRatesFor(final String currencyCode, final Consumer<Map<String, BigDecimal>> consumer) {
+        api.getYesterdaysRates(currencyCode, timeFactory.giveYesterdayDate()).enqueue(new Callback<RatesResponseDTO>() {
+            @Override
+            public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
+                Map<String, BigDecimal> rates = response.body().getRates().getExchangeRates();
+                consumer.consume(rates);
+            }
+
+            @Override
+            public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
+            }
+        });
         api.getRates(currencyCode).enqueue(new Callback<RatesResponseDTO>() {
             @Override
             public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
@@ -26,7 +38,6 @@ public class OpenExchangeBank {
 
             @Override
             public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
-
             }
         });
     }
