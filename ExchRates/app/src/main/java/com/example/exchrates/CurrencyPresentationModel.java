@@ -18,4 +18,9 @@ public class CurrencyPresentationModel {
     public BigDecimal getRate() {
         return rate;
     }
+
+    @Override
+    public String toString() {
+        return currencyCode + " = " + rate + "\n";
+    }
 }

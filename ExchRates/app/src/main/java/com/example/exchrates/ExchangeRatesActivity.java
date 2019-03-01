@@ -24,7 +24,6 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
         initializePresenter();
         presenter.onViewIsPrepared();
         final ExchangeRatesAdapter adapter = new ExchangeRatesAdapter();
-
     }
 
     private void initializePresenter() {
@@ -38,6 +37,6 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
 
     @Override
     public void showExchangeRate(List<CurrencyPresentationModel> rate) {
-
+        currency.setText(rate.toString());
     }
 }
