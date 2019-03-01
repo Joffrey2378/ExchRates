@@ -24,7 +24,6 @@ public class ExchangeRatesPresenter {
                         exchangeRates.entrySet()) {
                     convertedRates.add(new CurrencyPresentationModel(entry.getKey(), entry.getValue()));
                 }
-//                BigDecimal uah = exchangeRates.get("UAH");
                 view.showExchangeRate(convertedRates);
             }
         });

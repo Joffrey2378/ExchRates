@@ -21,6 +21,6 @@ public class CurrencyPresentationModel {
 
     @Override
     public String toString() {
-        return currencyCode + " = " + rate + "\n";
+        return "\n" + currencyCode + " = " + rate;
     }
 }

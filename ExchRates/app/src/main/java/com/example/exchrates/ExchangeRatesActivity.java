@@ -2,7 +2,8 @@ package com.example.exchrates;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -11,19 +12,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExchangeRatesActivity extends AppCompatActivity implements ExchangeRatesView {
-    private TextView currency;
     private ExchangeRatesPresenter presenter;
+    private ExchangeRatesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currency = findViewById(R.id.currency_tv);
+        RecyclerView recyclerView = findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ExchangeRatesAdapter();
+        recyclerView.setAdapter(adapter);
 
         initializePresenter();
         presenter.onViewIsPrepared();
-        final ExchangeRatesAdapter adapter = new ExchangeRatesAdapter();
     }
 
     private void initializePresenter() {
@@ -37,6 +40,6 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
 
     @Override
     public void showExchangeRate(List<CurrencyPresentationModel> rate) {
-        currency.setText(rate.toString());
+        adapter.populate(rate);
     }
 }
