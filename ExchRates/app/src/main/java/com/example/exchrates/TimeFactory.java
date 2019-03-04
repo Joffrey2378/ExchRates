@@ -6,7 +6,8 @@ public class TimeFactory {
 
     public static final int DAYS_TO_SUBTRACTION_FROM_CURRENT_DAY = 1;
 
-    public DateTime giveYesterdayDate() {
-        return DateTime.now().minusDays(DAYS_TO_SUBTRACTION_FROM_CURRENT_DAY);
+    public String giveYesterdaysDate() {
+        return DateTime.now().minusDays(DAYS_TO_SUBTRACTION_FROM_CURRENT_DAY).toString()
+                .substring(0, 10);
     }
 }

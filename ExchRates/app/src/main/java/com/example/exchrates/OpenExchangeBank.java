@@ -18,7 +18,8 @@ public class OpenExchangeBank {
     }
 
     void getRatesFor(final String currencyCode, final Consumer<Map<String, BigDecimal>> consumer) {
-        api.getYesterdaysRates(currencyCode, timeFactory.giveYesterdayDate()).enqueue(new Callback<RatesResponseDTO>() {
+        String dateTime = timeFactory.giveYesterdaysDate();
+        api.getYesterdaysRates(dateTime, currencyCode).enqueue(new Callback<RatesResponseDTO>() {
             @Override
             public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
                 Map<String, BigDecimal> rates = response.body().getRates().getExchangeRates();
@@ -29,16 +30,16 @@ public class OpenExchangeBank {
             public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
             }
         });
-        api.getRates(currencyCode).enqueue(new Callback<RatesResponseDTO>() {
-            @Override
-            public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
-                Map<String, BigDecimal> rates = response.body().getRates().getExchangeRates();
-                consumer.consume(rates);
-            }
-
-            @Override
-            public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
-            }
-        });
+//        api.getRates(currencyCode).enqueue(new Callback<RatesResponseDTO>() {
+//            @Override
+//            public void onResponse(Call<RatesResponseDTO> call, Response<RatesResponseDTO> response) {
+//                Map<String, BigDecimal> rates = response.body().getRates().getExchangeRates();
+//                consumer.consume(rates);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RatesResponseDTO> call, Throwable t) {
+//            }
+//        });
     }
 }
