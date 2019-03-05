@@ -5,13 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.exchrates.currency.CurrencyReport;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdapter.ExchangeRatesViewHolder> {
-    private List<CurrencyPresentationModel> rates = new ArrayList<>();
+    private List<CurrencyReport> rates = new ArrayList<>();
 
     @NonNull
     @Override
@@ -22,13 +26,22 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExchangeRatesViewHolder exchangeRatesViewHolder, int i) {
-        CurrencyPresentationModel currentModel = rates.get(i);
-        exchangeRatesViewHolder.currencyCode.setText(currentModel.getCurrencyCode());
-        exchangeRatesViewHolder.rate.setText(currentModel.getRate().toString());
+    public void onBindViewHolder(@NonNull ExchangeRatesViewHolder holder, int i) {
+        CurrencyReport currentModel = rates.get(i);
+        holder.currencyCode.setText(currentModel.getCurrencyCode());
+        holder.rate.setText(currentModel.getTodaysRate().toString());
+        BigDecimal difference = currentModel.getDifference();
+        holder.difference.setText(difference.toString());
+        if (difference.doubleValue() > 0.0d) {
+            holder.difSign.setImageResource(R.drawable.ic_arrow_up);
+        } else if (difference.doubleValue() < 0.0d) {
+            holder.difSign.setImageResource(R.drawable.ic_arrow_down);
+        } else {
+            holder.difSign.setImageResource(R.drawable.ic_default_equal_sign);
+        }
     }
 
-    public void populate(final List<CurrencyPresentationModel> models) {
+    public void populate(final List<CurrencyReport> models) {
         this.rates.clear();
         this.rates.addAll(models);
         this.notifyDataSetChanged();
@@ -42,11 +55,15 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
     public class ExchangeRatesViewHolder extends RecyclerView.ViewHolder {
         private TextView currencyCode;
         private TextView rate;
+        private TextView difference;
+        private ImageView difSign;
 
         public ExchangeRatesViewHolder(@NonNull View itemView) {
             super(itemView);
             currencyCode = itemView.findViewById(R.id.currency_code);
             rate = itemView.findViewById(R.id.rate);
+            difference = itemView.findViewById(R.id.difference_tv);
+            difSign = itemView.findViewById(R.id.differentiator_sign);
         }
     }
 }

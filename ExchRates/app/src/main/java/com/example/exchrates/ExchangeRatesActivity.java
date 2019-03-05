@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.exchrates.currency.CurrencyReport;
 import com.example.exchrates.currency.OpenExchangeBank;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -45,7 +46,7 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
     }
 
     @Override
-    public void showExchangeRate(List<CurrencyPresentationModel> rate) {
-        adapter.populate(rate);
+    public void showExchangeRate(List<CurrencyReport> reports) {
+        adapter.populate(reports);
     }
 }

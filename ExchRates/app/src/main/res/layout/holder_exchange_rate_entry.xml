@@ -27,10 +27,22 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/differentiator_sign"
         app:layout_constraintStart_toEndOf="@id/currency_code"
+        app:layout_constraintEnd_toStartOf="@id/difference_tv"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="29.695645454554" />
+
+    <TextView
+        android:id="@+id/difference_tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/differentiator_sign"
+        app:layout_constraintStart_toEndOf="@id/rate"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="+0,5" />
 
     <ImageView
         android:id="@+id/differentiator_sign"
@@ -40,7 +52,7 @@
         android:src="@drawable/ic_default_equal_sign"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/rate"
+        app:layout_constraintStart_toEndOf="@id/difference_tv"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
