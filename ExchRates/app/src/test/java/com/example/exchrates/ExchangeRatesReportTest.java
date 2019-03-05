@@ -1,53 +1,71 @@
 package com.example.exchrates;
 
+import com.example.exchrates.currency.CurrencyReport;
+import com.example.exchrates.currency.ExchangeRatesReport;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 public class ExchangeRatesReportTest {
-    Map<String, BigDecimal> first;
-    Map<String, BigDecimal> second;
+    Map<String, BigDecimal> yesterdays;
+    Map<String, BigDecimal> todays;
     ExchangeRatesReport report;
+    List<BigDecimal> result;
 
     @Before
     public void setUp() {
-        first = new HashMap<>();
-        first.put("zero", new BigDecimal("0"));
-        first.put("one", new BigDecimal("2"));
-        first.put("two", new BigDecimal("3"));
-        first.put("three", new BigDecimal("40"));
-        second = new HashMap<>();
-        second.put("zero", new BigDecimal("10"));
-        second.put("one", new BigDecimal("20"));
-        second.put("two", new BigDecimal("30"));
-        second.put("three", new BigDecimal("40"));
-        report = new ExchangeRatesReport(first, second);
+        yesterdays = new HashMap<>();
+        todays = new HashMap<>();
+        report = new ExchangeRatesReport(yesterdays, todays);
+        result = new ArrayList<>();
+    }
+
+    private void stubWithDefaultValues() {
+        yesterdays.put("UAH", new BigDecimal(10));
+        yesterdays.put("RUB", new BigDecimal(20));
+        yesterdays.put("CNY", new BigDecimal(30));
+        yesterdays.put("JPY", new BigDecimal(40));
+        todays.put("UAH", new BigDecimal(5));
+        todays.put("RUB", new BigDecimal(10));
+        todays.put("CNY", new BigDecimal(20));
+        todays.put("JPY", new BigDecimal(30));
     }
 
     @Test
     public void getYesterdays() {
-//        for (Map.Entry<String, BigDecimal> entry : first.entrySet()) {
-//            System.out.println(first.get(entry.getKey()));
-//        }
-        report.getYesterdays();
+        stubWithDefaultValues();
+        assertEquals(yesterdays, report.getYesterdays());
     }
 
     @Test
     public void getTodays() {
-//        for (Map.Entry<String, BigDecimal> entry : second.entrySet()) {
-//            System.out.println(second.get(entry.getKey()));
-//        }
-        report.getTodays();
+        stubWithDefaultValues();
+        assertEquals(todays, report.getTodays());
     }
 
     @Test
-    public void defineDifferenceInEachCurrency() {
-        for (Map.Entry<String, BigDecimal> entry : second.entrySet()) {
-            final BigDecimal third = second.get(entry.getKey());
-            System.out.println(third);
-        }
+    public void defineDifferenceInEachCurrencyTesting() {
+        report.defineDifferenceInEachCurrency();
+    }
+
+    @Test
+    public void defineDifferenceInEachCurrency_assertUahReportValues() {
+        CurrencyReport exptected = new CurrencyReport("UAH", BigDecimal.ONE, BigDecimal.TEN);
+        yesterdays.put("UAH", BigDecimal.ONE);
+        todays.put("UAH", BigDecimal.TEN);
+        List<CurrencyReport> reports = report.defineDifferenceInEachCurrency();
+        CurrencyReport actual = reports.stream()
+                .filter(currency -> currency.getCurrencyCode() == "UAH")
+                .findFirst()
+                .get();
+        assertEquals(exptected, actual);
     }
 }

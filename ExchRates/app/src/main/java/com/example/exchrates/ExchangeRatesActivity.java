@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.exchrates.currency.OpenExchangeBank;
+
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import java.util.List;

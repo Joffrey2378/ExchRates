@@ -1,6 +1,8 @@
-package com.example.exchrates;
+package com.example.exchrates.currency;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ExchangeRatesReport {
@@ -20,9 +22,13 @@ public class ExchangeRatesReport {
         return todays;
     }
 
-    public void defineDifferenceInEachCurrency() {
+    public List<CurrencyReport> defineDifferenceInEachCurrency() {
+        final List<CurrencyReport> differList = new ArrayList<>();
         for (Map.Entry<String, BigDecimal> entry : yesterdays.entrySet()) {
-            final BigDecimal todayRate = todays.get(entry.getKey());
+            CurrencyReport currencyReport = new CurrencyReport(entry.getKey(),
+                    entry.getValue(), todays.get(entry.getKey()));
+            differList.add(currencyReport);
         }
+        return differList;
     }
 }
