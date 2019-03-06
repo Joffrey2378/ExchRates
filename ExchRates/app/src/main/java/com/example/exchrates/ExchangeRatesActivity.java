@@ -15,6 +15,7 @@ import java.util.List;
 
 import network.OpenExchangeApi;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExchangeRatesActivity extends AppCompatActivity implements ExchangeRatesView {
@@ -43,7 +44,9 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
 
     private void initializePresenter() {
         final Retrofit retrofit = new Retrofit.Builder().baseUrl("https://openexchangerates.org")
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         OpenExchangeApi api = retrofit.create(OpenExchangeApi.class);
 
         OpenExchangeBank bank = new OpenExchangeBank(api);
