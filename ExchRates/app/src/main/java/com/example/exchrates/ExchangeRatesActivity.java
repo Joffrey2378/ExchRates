@@ -7,22 +7,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.domain.CurrencyReport;
-
-import net.danlew.android.joda.JodaTimeAndroid;
+import com.example.exchrates.application.ExchangeRatesApplication;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ExchangeRatesActivity extends AppCompatActivity implements ExchangeRatesView {
-    private ExchangeRatesPresenter presenter;
+
+    @Inject
+    ExchangeRatesPresenter presenter;
     private ExchangeRatesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        JodaTimeAndroid.init(this);
-
+        resolveDependencies();
+        presenter.setView(this);
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -32,6 +34,11 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
         adapter = new ExchangeRatesAdapter();
         recyclerView.setAdapter(adapter);
         presenter.onViewIsPrepared();
+    }
+
+    private void resolveDependencies() {
+        ExchangeRatesApplication application = (ExchangeRatesApplication) getApplication();
+        application.getInjector().inject(this);
     }
 
     @Override
