@@ -1,5 +1,7 @@
 package com.example.exchrates.currency;
 
+import com.example.domain.CurrencyReport;
+import com.example.domain.ExchangeRatesReport;
 import com.example.exchrates.Consumer;
 import com.example.exchrates.TimeFactory;
 

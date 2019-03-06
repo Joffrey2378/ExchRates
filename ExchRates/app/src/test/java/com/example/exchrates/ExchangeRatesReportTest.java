@@ -1,7 +1,7 @@
 package com.example.exchrates;
 
-import com.example.exchrates.currency.CurrencyReport;
-import com.example.exchrates.currency.ExchangeRatesReport;
+import com.example.domain.CurrencyReport;
+import com.example.domain.ExchangeRatesReport;
 
 import org.junit.Before;
 import org.junit.Test;

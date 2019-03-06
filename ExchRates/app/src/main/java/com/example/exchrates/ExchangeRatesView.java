@@ -1,6 +1,6 @@
 package com.example.exchrates;
 
-import com.example.exchrates.currency.CurrencyReport;
+import com.example.domain.CurrencyReport;
 
 import java.util.List;
 

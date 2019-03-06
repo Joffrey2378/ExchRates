@@ -2,10 +2,11 @@ package com.example.exchrates;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.exchrates.currency.CurrencyReport;
+import com.example.domain.CurrencyReport;
 import com.example.exchrates.currency.OpenExchangeBank;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -29,6 +30,10 @@ public class ExchangeRatesActivity extends AppCompatActivity implements Exchange
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(new MarginDivider(16));
+        recyclerView.addItemDecoration(decoration);
         adapter = new ExchangeRatesAdapter();
         recyclerView.setAdapter(adapter);
 

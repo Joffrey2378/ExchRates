@@ -1,4 +1,4 @@
-package com.example.exchrates.currency;
+package com.example.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;

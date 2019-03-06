@@ -1,5 +1,7 @@
 package com.example.exchrates.currency;
 
+import com.example.domain.CurrencyReport;
+
 import org.junit.Test;
 
 import java.math.BigDecimal;

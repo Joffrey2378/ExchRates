@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.exchrates.currency.CurrencyReport;
+import com.example.domain.CurrencyReport;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,9 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
     public void onBindViewHolder(@NonNull ExchangeRatesViewHolder holder, int i) {
         CurrencyReport currentModel = rates.get(i);
         holder.currencyCode.setText(currentModel.getCurrencyCode());
-        holder.rate.setText(currentModel.getTodaysRate().toString());
+        holder.rate.setText(currentModel.getTodaysRate().setScale(3, RoundingMode.HALF_DOWN).toString());
         BigDecimal difference = currentModel.getDifference();
-        holder.difference.setText(difference.toString());
+        holder.difference.setText(difference.setScale(3, RoundingMode.HALF_DOWN).toString());
         if (difference.doubleValue() > 0.0d) {
             holder.difSign.setImageResource(R.drawable.ic_arrow_up);
         } else if (difference.doubleValue() < 0.0d) {
