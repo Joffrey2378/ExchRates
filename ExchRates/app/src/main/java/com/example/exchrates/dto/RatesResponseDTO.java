@@ -1,5 +1,5 @@
 
-package dto;
+package com.example.exchrates.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

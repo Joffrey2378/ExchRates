@@ -3,12 +3,12 @@ package com.example.exchrates.currency;
 import com.example.domain.CurrencyReport;
 import com.example.domain.ExchangeRatesReport;
 import com.example.exchrates.TimeFactory;
+import com.example.exchrates.dto.RatesResponseDTO;
+import com.example.exchrates.network.OpenExchangeApi;
 
 import java.util.List;
 
-import dto.RatesResponseDTO;
 import io.reactivex.Single;
-import network.OpenExchangeApi;
 
 public class OpenExchangeBank {
     private final OpenExchangeApi api;

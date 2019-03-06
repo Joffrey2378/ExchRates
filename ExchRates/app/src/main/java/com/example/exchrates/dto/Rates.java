@@ -1,4 +1,4 @@
-package dto;
+package com.example.exchrates.dto;
 
 import android.support.v4.util.ArrayMap;
 

@@ -1,6 +1,7 @@
-package network;
+package com.example.exchrates.network;
 
-import dto.RatesResponseDTO;
+import com.example.exchrates.dto.RatesResponseDTO;
+
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
